@@ -1,5 +1,5 @@
 {
-    "name": "slim4/vite-integration",
+    "name": "responsive-sk/slim4-vite-integration",
     "description": "Vite integration for various template engines in Slim 4 projects",
     "type": "library",
     "license": "MIT",
@@ -9,6 +9,8 @@
             "email": "your.email@example.com"
         }
     ],
+    "homepage": "https://github.com/responsive-sk/slim4-vite-integration",
+    "keywords": ["slim", "slim4", "vite", "twig", "plates", "blade", "volt", "template", "integration"],
     "require": {
         "php": "^7.4|^8.0",
         "slim/slim": "^4.0",

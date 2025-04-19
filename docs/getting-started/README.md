@@ -15,7 +15,7 @@ This guide will help you get started with the Slim4 Vite Integration package.
 ### 1. Install the package via Composer
 
 ```bash
-composer require slim4/vite-integration
+composer require responsive-sk/slim4-vite-integration
 ```
 
 ### 2. Install required dependencies

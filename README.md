@@ -1,5 +1,8 @@
 # Slim4 Vite Integration
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/responsive-sk/slim4-vite-integration.svg?style=flat-square)](https://packagist.org/packages/responsive-sk/slim4-vite-integration)
+[![Total Downloads](https://img.shields.io/packagist/dt/responsive-sk/slim4-vite-integration.svg?style=flat-square)](https://packagist.org/packages/responsive-sk/slim4-vite-integration)
+
 This package provides integration between Vite and various template engines in Slim 4 projects. It allows you to easily use Vite for frontend asset building in your Slim 4 projects with different template engines.
 
 ## Documentation
@@ -19,7 +22,7 @@ This package provides integration between Vite and various template engines in S
 ## Installation
 
 ```bash
-composer require slim4/vite-integration
+composer require responsive-sk/slim4-vite-integration
 ```
 
 ### Dependencies

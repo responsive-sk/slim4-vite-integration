@@ -485,13 +485,13 @@ This example shows how to handle images.
 <body>
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4">Image Handling Example</h1>
-        
+
         <!-- Basic image -->
         <img src="{{ vite.image('logo.png') }}" alt="Logo" class="w-32 h-32 mb-4">
-        
+
         <!-- Image with custom resource path -->
         <img src="{{ vite.image('banner.jpg', 'resources/assets/images') }}" alt="Banner" class="w-full h-64 object-cover mb-4">
-        
+
         <!-- Image with placeholder -->
         <img src="{{ vite.image('non-existent.jpg', 'resources/assets/images', 'placeholder.jpg') }}" alt="Placeholder" class="w-32 h-32">
     </div>
@@ -543,7 +543,7 @@ body {
             font-weight: normal;
             font-style: normal;
         }
-        
+
         .another-font {
             font-family: 'AnotherFont', sans-serif;
         }
@@ -573,7 +573,7 @@ This example shows how to integrate the package with the Slim4 Root package.
         "slim/psr7": "^1.0",
         "php-di/php-di": "^6.0",
         "responsive-sk/slim4-root": "dev-main",
-        "slim4/vite-integration": "dev-main"
+        "responsive-sk/slim4-vite-integration": "dev-main"
     }
 }
 ```
@@ -655,21 +655,21 @@ return [
         $paths = $container->get(PathsInterface::class);
         $rootPath = $paths->getRootPath();
         $twigPath = $rootPath . '/app/Infrastructure/Web/View/templates';
-        
+
         $twig = Twig::create($twigPath, [
             'cache' => false,
             'debug' => true,
             'auto_reload' => true,
         ]);
-        
+
         return $twig;
     },
-    
+
     // Vite asset helper
     ViteAssetHelper::class => function (\Psr\Container\ContainerInterface $container) {
         $paths = $container->get(PathsInterface::class);
         $rootPath = $paths->getRootPath();
-        
+
         return new ViteAssetHelper(
             $rootPath . '/public/build/manifest.json',
             false, // Set to true for development mode
