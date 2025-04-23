@@ -85,10 +85,10 @@ class ViteAssetHelper
     /**
      * Generate a script tag for a JavaScript entry point
      *
-     * @param string $entrypoint
-     * @return string
+     * @param string $entrypoint Path to the JavaScript entry point
+     * @return string Generated script tag
      */
-    public function jsTag(string $entrypoint): string
+    public function jsTag(string $entrypoint): string 
     {
         if ($this->isDev) {
             return sprintf(
@@ -98,28 +98,31 @@ class ViteAssetHelper
             );
         }
 
-        try {
-            $manifest = $this->getManifest();
-            $file = $manifest[$entrypoint]['file'] ?? null;
+        $path = $this->resolveAsset($entrypoint);
+        return sprintf('<script type="module" src="%s"></script>', $path);
+    }
 
-            if (!$file) {
-                // Fallback to direct path
-                return sprintf(
-                    '<script type="module" src="/%s/assets/%s"></script>',
-                    $this->buildDirectory,
-                    basename($entrypoint)
-                );
-            }
-
-            return sprintf('<script type="module" src="/%s/%s"></script>', $this->buildDirectory, $file);
-        } catch (\Exception $e) {
-            // Fallback to direct path
-            return sprintf(
-                '<script type="module" src="/%s/assets/%s"></script>',
-                $this->buildDirectory,
-                basename($entrypoint)
-            );
+    /**
+     * Resolve asset path from manifest
+     * 
+     * @param string $entry Asset entry path
+     * @return string Resolved asset path
+     */
+    private function resolveAsset(string $entry): string
+    {
+        $manifest = $this->getManifest();
+        
+        if (isset($manifest[$entry])) {
+            return "/{$this->buildDirectory}/" . $manifest[$entry]['file'];
         }
+
+        foreach ($manifest as $key => $value) {
+            if (basename($key) === basename($entry)) {
+                return "/{$this->buildDirectory}/" . $value['file'];
+            }
+        }
+
+        return "/{$this->buildDirectory}/assets/" . basename($entry);
     }
 
     /**
