@@ -143,39 +143,46 @@ class VitePaths implements VitePathsInterface
     public function getPaths(): array
     {
         $paths = $this->paths->getPaths();
-        
+
         // Add Vite-specific paths
-        $paths['build'] = $this->getBuildPath();
-        $paths['build_assets'] = $this->getBuildAssetsPath();
-        $paths['vite_manifest'] = $this->getViteManifestPath();
-        
+        $paths['build'] = $this->getBuildPath($this->buildDirectory);
+        $paths['build_assets'] = $this->getBuildAssetsPath($this->buildDirectory);
+        $paths['vite_manifest'] = $this->getViteManifestPath($this->buildDirectory);
+
         return $paths;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getBuildPath(): string
+    public function getBuildPath(string $buildDirectory = 'build'): string
     {
-        return $this->getPublicPath() . '/' . $this->buildDirectory;
+        // Use the stored build directory if no parameter is provided
+        $directory = $buildDirectory === 'build' ? $this->buildDirectory : $buildDirectory;
+        return $this->getPublicPath() . '/' . $directory;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getBuildAssetsPath(): string
+    public function getBuildAssetsPath(string $buildDirectory = 'build'): string
     {
-        return $this->getBuildPath() . '/assets';
+        // Use the stored build directory if no parameter is provided
+        $directory = $buildDirectory === 'build' ? $this->buildDirectory : $buildDirectory;
+        return $this->getBuildPath($directory) . '/assets';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getViteManifestPath(): string
+    public function getViteManifestPath(string $buildDirectory = 'build'): string
     {
+        // Use the stored build directory if no parameter is provided
+        $directory = $buildDirectory === 'build' ? $this->buildDirectory : $buildDirectory;
+
         $possiblePaths = [
-            $this->getBuildPath() . '/manifest.json',
-            $this->getBuildPath() . '/.vite/manifest.json',
+            $this->getBuildPath($directory) . '/manifest.json',
+            $this->getBuildPath($directory) . '/.vite/manifest.json',
         ];
 
         foreach ($possiblePaths as $path) {
@@ -184,6 +191,6 @@ class VitePaths implements VitePathsInterface
             }
         }
 
-        return $this->getBuildPath() . '/.vite/manifest.json';
+        return $this->getBuildPath($directory) . '/.vite/manifest.json';
     }
 }
